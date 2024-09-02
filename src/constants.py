@@ -33,3 +33,7 @@ TT_RBRACKET = "RBRACKET"
 TT_LBRACKET = "LBRACKET"
 TT_DQUOTE = "DQUOTE"
 TT_SQUOTE = "SQUOTE"
+
+#constants 
+DIGITS = "0123456789"
+LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<>:-_=!@#$%^&*()[].,?/"
