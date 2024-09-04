@@ -1,0 +1,10 @@
+PUSH 0
+PUSH 0
+PRINT "HEHEHEHE"
+ADD
+JUMP.EQ.0 L2
+HALT
+L2:
+PRINT "HERE"
+print "not haer"
+HALT
