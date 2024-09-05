@@ -3,13 +3,19 @@ but seriously read this to the end to not get any errors bc error handling is no
 
 BASIC SYNTAX:
 PUSH <int>: used to push a number to the stack. can only push ints currently
-READ: used to get user input
+
+READ: used to get user input 
+
 ADD: takes the top 2 numbers in the stack then adds them. this removes those 2 items from the stack then pushes the answer
+
 PRINT <String>: used to print out a message to stdout.
+
 JUMP.EQ.0 <LABEL>: used to jump to a label when the top of the stack equals 0 
+
 HALT: used to mark the end of a program, if this is missing you get infinite loop :)
 
 Labels:
+
 Labels must end with a ":" A label can look like this >>>  L1:
 
 By default, stack is always 256 spots in size.
