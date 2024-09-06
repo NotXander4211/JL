@@ -1,4 +1,4 @@
-import constants
+from helper import Stack, CheckType
 
 filen = "./src/test.jail"
 
@@ -23,7 +23,7 @@ for line in programL:
     tc += 1
     if opcode == "push":
         #should give variable for now its only numbers(int)
-        num = int(args[1])
+        num = args[1]
         program.append(num)
         tc += 1
     if opcode == "print":
@@ -37,20 +37,6 @@ for line in programL:
         
 print(program)
 print(lt)
-
-class Stack:
-    def __init__(self, size):
-        self.buf = [0 for _ in range(size)]
-        self.pt = 0
-    def push(self, value: int):
-        self.pt += 1
-        self.buf[self.pt] = value
-    def pop(self):
-        number = self.buf[self.pt]
-        self.pt -= 0
-        return number
-    def top(self):
-        return self.buf[self.pt]
     
 pc = 0
 stack = Stack(256)
@@ -73,7 +59,10 @@ while program[pc] != "halt":
     elif opcode == "add":
         a = stack.pop()
         b = stack.pop()
-        stack.push(a + b)
+        if CheckType(a, b, int, int):
+            stack.push(a + b)
+        else:
+            raise TypeError("Top 2 variables in the stack are both not Type int")
     elif opcode == "jump.eq.0":
         print("prinwet")
         num = stack.top()
