@@ -1,10 +1,9 @@
-PUSH 10
-PUSH 10
-PRINT "HEHEHEHE"
-ADD
-JUMP.EQ.0 L2
+PUSH BOOL false
+??PRINT stack
+PRINT top
+JUMP.FA L2
+PRINT "Evaluated to False"
 HALT
 L2:
-PRINT "HERE"
-print "not haer"
+PRINT "Evaluated to True"
 HALT
