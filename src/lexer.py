@@ -58,7 +58,30 @@ for line in programL:
         label = args[1].lower()
         program.append(label)
         tc += 1
-if debug:
+    if opcode == "var":
+        type_ = args[1]
+        var = args[3]
+        varName = args[2]
+        program.append(varName)
+        tc += 1
+        match type_.lower():
+            case "int":
+                program.append(int(var))
+            case "str":
+                program.append(str(var))
+            case "bool":
+                if var.lower() == "true":
+                    program.append(True)
+                else:
+                    program.append(False)
+            case "list":
+                var = var.split(",")
+                for i in var:
+                    var[i] = var[i].strip()
+                program.append(var)
+        tc += 1
+
+if not debug:
     print(program)
     print(lt)
     
@@ -71,6 +94,10 @@ while program[pc] != "halt":
     if opcode == "push":
         stack.push(program[pc])
         pc += 1
+    elif opcode == "pop":
+        #will NOT save the value
+        stack.push(program[pc])
+        pc += 1
     elif opcode == "read":
         num = int(input(""))
         stack.push(num)
@@ -78,7 +105,7 @@ while program[pc] != "halt":
         if program[pc] == "__top__":
             strL = "TOP: " + str(stack.top())
         elif program[pc] == "__stack__":
-            strL = "TOP: " + str(stack.buf) + " : " + str(stack.pt)
+            strL = "TOP: " + str(stack.buf) + " : " + str(stack.vars) + " : " + str(stack.pt)
         else:
             strL = program[pc]
         print(strL)
@@ -97,3 +124,9 @@ while program[pc] != "halt":
             pc = lt[program[pc]]
         else:
             pc += 1
+    elif opcode == "var":
+        stack.pushVar(program[pc], program[pc + 1])
+        pc += 2
+    else:
+        print(opcode + "not implemented yet or not a possible opcode")
+        pc += 1

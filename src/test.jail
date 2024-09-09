@@ -1,6 +1,7 @@
 PUSH BOOL false
-??PRINT stack
 PRINT top
+VAR BOOL myBool true
+PRINT stack
 JUMP.FA L2
 PRINT "Evaluated to False"
 HALT

@@ -6,6 +6,7 @@ class MissingArgumentError(Exception):
 
 class Stack:
     def __init__(self, size):
+        self.vars = {}
         self.buf = [0 for _ in range(size)]
         self.pt = -1
     def push(self, value: int):
@@ -18,6 +19,10 @@ class Stack:
         return number
     def top(self):
         return self.buf[self.pt]
+    def pushVar(self, var, value):
+        self.vars[var] = value
+    def getVar(self, var):
+        return self.vars[var]
 
 def CheckType(type1, type2, wantedType1, wantedType2):
     global boolType1,boolType2
