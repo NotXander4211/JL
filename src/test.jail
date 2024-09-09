@@ -1,8 +1,9 @@
-PUSH BOOL false
+PUSH INT 1
 PRINT top
-VAR BOOL myBool true
-PRINT stack
-JUMP.FA L2
+VAR INT x 10
+PUSH VAR x
+PRINT top
+JUMP.GT.2 L2
 PRINT "Evaluated to False"
 HALT
 L2:

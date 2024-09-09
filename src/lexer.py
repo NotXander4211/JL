@@ -1,7 +1,7 @@
 from helper import Stack, CheckType, JumpStatement, TypeError, MissingArgumentError
 
 debug = False
-filen = "./src/test.jail"
+filen = "./src/test2.jail"
 
 programL = []
 with open(filen, "r") as file:
@@ -44,11 +44,14 @@ for line in programL:
                 for i in var:
                     var[i] = var[i].strip()
                 program.append(var)
+            case "var":
+                program.append("_var_")
+                program.append(str(var))
         tc += 1
     if opcode == "print":
-        if args[1].lower() == "top":
+        if args[1].lower() == "__top__":
             stringL = "__top__"
-        elif args[1].lower() == "stack":
+        elif args[1].lower() == "__stack__":
             stringL = "__stack__"
         else:
             stringL = " ".join(args[1:])[1:-1]
@@ -92,12 +95,16 @@ while program[pc] != "halt":
     opcode = program[pc]
     pc += 1
     if opcode == "push":
-        stack.push(program[pc])
-        pc += 1
+        if program[pc] == "_var_":
+            pc += 1
+            stack.push(stack.getVar(program[pc]))
+            pc += 1
+        else:
+            stack.push(program[pc])
+            pc += 1
     elif opcode == "pop":
         #will NOT save the value
-        stack.push(program[pc])
-        pc += 1
+        stack.pop()
     elif opcode == "read":
         num = int(input(""))
         stack.push(num)
@@ -105,7 +112,7 @@ while program[pc] != "halt":
         if program[pc] == "__top__":
             strL = "TOP: " + str(stack.top())
         elif program[pc] == "__stack__":
-            strL = "TOP: " + str(stack.buf) + " : " + str(stack.vars) + " : " + str(stack.pt)
+            strL = "STACK: " + str(stack.buf) + " : " + str(stack.vars) + " : " + str(stack.pt)
         else:
             strL = program[pc]
         print(strL)
@@ -119,7 +126,7 @@ while program[pc] != "halt":
             raise TypeError("Top 2 variables in the stack are both not Type int")
     elif opcode.startswith("jump"):
         theTop = stack.top()
-        # print(stack.top())
+        #print(stack.top())
         if JumpStatement(opcode, theTop):
             pc = lt[program[pc]]
         else:
