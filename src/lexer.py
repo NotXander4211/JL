@@ -53,6 +53,8 @@ for line in programL:
             stringL = "__top__"
         elif args[1].lower() == "__stack__":
             stringL = "__stack__"
+        elif args[1].lower() == "__var_stack__":
+            stringL = "__var_stack__"
         else:
             stringL = " ".join(args[1:])[1:-1]
         program.append(stringL)
@@ -84,7 +86,7 @@ for line in programL:
                 program.append(var)
         tc += 1
 
-if not debug:
+if debug:
     print(program)
     print(lt)
     
@@ -112,7 +114,9 @@ while program[pc] != "halt":
         if program[pc] == "__top__":
             strL = "TOP: " + str(stack.top())
         elif program[pc] == "__stack__":
-            strL = "STACK: " + str(stack.buf) + " : " + str(stack.vars) + " : " + str(stack.pt)
+            strL = "STACK: " + str(stack.buf) + " : " + str(stack.pt)
+        elif program[pc] == "__var_stack__":
+            strL = f"Var Stack: {str(stack.vars)}"
         else:
             strL = program[pc]
         print(strL)

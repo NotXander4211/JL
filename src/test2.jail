@@ -1,7 +1,7 @@
 VAR INT x 3
 PUSH INT 10
 PUSH VAR x
-PRINT __top__
+PRINT __var_stack__
 POP
 PRINT __top__
 JUMP.GT.4 L1
