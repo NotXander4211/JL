@@ -1,3 +1,4 @@
+#!S 256
 VAR INT x 3
 PUSH INT 10
 PUSH VAR x

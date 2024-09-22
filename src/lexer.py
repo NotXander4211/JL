@@ -1,6 +1,7 @@
 from helper import Stack, CheckType, JumpStatement, TypeError, MissingArgumentError
 
 debug = False
+STACK_SIZE = 256
 filen = "./src/test2.jail"
 
 programL = []
@@ -22,7 +23,10 @@ for line in programL:
     if opcode.startswith("??"):
         #this is a comment ^
         continue
-    
+    if opcode.startswith("#!S"):
+        STACK_SIZE = opcode[1]
+        continue
+
     program.append(opcode)
     tc += 1
     if opcode == "push":
@@ -91,7 +95,7 @@ if debug:
     print(lt)
     
 pc = 0
-stack = Stack(256)
+stack = Stack(STACK_SIZE)
 
 while program[pc] != "halt":
     opcode = program[pc]
