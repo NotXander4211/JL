@@ -1,6 +1,14 @@
-from helper import Stack, CheckType, JumpStatement, TypeError, MissingArgumentError
+from helper import Stack, RuleSet, CheckType, JumpStatement, TypeError, MissingArgumentError
+
+# types: int, str, bool, list
+# comment: ??
+# files start with: #JL! size<int>
+# ex: #JL! 16
+# --not in bytes, in length of the stack<list>--
+#default is 256 
 
 debug = False
+Ruleset = RuleSet()
 STACK_SIZE = 256
 filen = "./src/test2.jail"
 
@@ -23,8 +31,17 @@ for line in programL:
     if opcode.startswith("??"):
         #this is a comment ^
         continue
-    if opcode.startswith("#!S"):
-        STACK_SIZE = opcode[1]
+    # deal with #JL,  #JL@ for commands
+    if opcode.startswith("#JL"):
+        permutator = opcode[3]
+        cmd = opcode[3:]
+        if permutator == "@": 
+            match cmd.lower():
+                case "ss":
+                    STACK_SIZE = args[1]
+                case "ivs":
+                    pass
+        
         continue
 
     program.append(opcode)
@@ -143,5 +160,5 @@ while program[pc] != "halt":
         stack.pushVar(program[pc], program[pc + 1])
         pc += 2
     else:
-        print(opcode + "not implemented yet or not a possible opcode")
+        print(opcode + "not implemented yet or not a possible opcode!")
         pc += 1

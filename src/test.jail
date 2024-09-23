@@ -1,4 +1,5 @@
-#!S 256
+#JL@SS 256
+#JL@IVS
 PUSH INT 1
 PRINT top
 VAR INT x 10
