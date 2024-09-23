@@ -1,3 +1,4 @@
+#!S 256
 PUSH INT 1
 PRINT top
 VAR INT x 10
