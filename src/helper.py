@@ -5,7 +5,7 @@ class MissingArgumentError(Exception):
     pass
 
 class RuleSet:
-    def __init__():
+    def __init__(self):
         pass
 
 class Stack:
@@ -65,3 +65,12 @@ def JumpStatement(statement, top):
             case default:
                 raise MissingArgumentError("Missing argument for jump statement")
     return res
+
+Commands = {
+    "add":lambda x,y: x+y,
+    "sub":lambda x,y: x-y,
+    "mult":lambda x,y: x*y,
+    "div":lambda x,y: x/y,
+    "mod":lambda x,y: x%y,
+    "lol":lambda : print("hi")
+}

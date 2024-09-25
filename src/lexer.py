@@ -1,4 +1,4 @@
-from helper import Stack, RuleSet, CheckType, JumpStatement, TypeError, MissingArgumentError
+from helper import Stack, RuleSet, CheckType, JumpStatement, TypeError, MissingArgumentError, Commands
 
 # types: int, str, bool, list
 # comment: ??
@@ -32,7 +32,8 @@ for line in programL:
         #this is a comment ^
         continue
     # deal with #JL,  #JL@ for commands
-    if opcode.startswith("#JL"):
+    if opcode.startswith("#jl"):
+        print("--Lexer: startswith #JL")
         permutator = opcode[3]
         cmd = opcode[3:]
         if permutator == "@": 
@@ -80,6 +81,9 @@ for line in programL:
             stringL = " ".join(args[1:])[1:-1]
         program.append(stringL)
         tc += 1
+    if opcode == "run":
+        program.append(args[1].lower())
+        tc+=1
     if opcode.startswith("jump"):
         label = args[1].lower()
         program.append(label)
@@ -106,6 +110,7 @@ for line in programL:
                     var[i] = var[i].strip()
                 program.append(var)
         tc += 1
+    
 
 if debug:
     print(program)
@@ -142,6 +147,9 @@ while program[pc] != "halt":
             strL = program[pc]
         print(strL)
         pc += 1
+    elif opcode == "run":
+        Commands[program[pc]]()
+        pc+=1
     elif opcode == "add":
         a = stack.pop()
         b = stack.pop()

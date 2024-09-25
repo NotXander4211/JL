@@ -1,10 +1,11 @@
-#JL@SS 256
-#JL@IVS
+??#JL@SS 256
+??#JL@IVS
+run lol
 PUSH INT 1
-PRINT top
+PRINT __top__
 VAR INT x 10
 PUSH VAR x
-PRINT top
+PRINT __top__
 JUMP.GT.2 L2
 PRINT "Evaluated to False"
 HALT
