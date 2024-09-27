@@ -1,15 +1,16 @@
-from helper import Stack, RuleSet, CheckType, JumpStatement, TypeError, MissingArgumentError, Commands
+from helper import Stack, RuleSetConfigs, CheckType, JumpStatement, TypeError, MissingArgumentError
 
 # types: int, str, bool, list
 # comment: ??
-# files start with: #JL! size<int>
-# ex: #JL! 16
+# #JL for commands
+# #JL@ for other commands 
+# #JL@SS size<int>
+# use that for stack size
 # --not in bytes, in length of the stack<list>--
 #default is 256 
 
 debug = False
-Ruleset = RuleSet()
-STACK_SIZE = 256
+Ruleset = RuleSetConfigs(256, True)
 filen = "./src/test2.jail"
 
 programL = []
@@ -26,7 +27,7 @@ for line in programL:
     if opcode == "":
         continue
     if opcode.endswith(":"):
-        lt[opcode[:-1]] = tc
+        lt[opcode[:-1]] = tc+1
         continue
     if opcode.startswith("??"):
         #this is a comment ^
@@ -35,13 +36,15 @@ for line in programL:
     if opcode.startswith("#jl"):
         print("--Lexer: startswith #JL")
         permutator = opcode[3]
-        cmd = opcode[3:]
+        cmd = opcode[4:]
         if permutator == "@": 
             match cmd.lower():
                 case "ss":
-                    STACK_SIZE = args[1]
+                    print("ss")
+                    Ruleset.setVal("ss", int(args[1]))
                 case "ivs":
-                    pass
+                    print('ivs')
+                    Ruleset.setVal("ivs", bool(args[1]))
         
         continue
 
@@ -81,9 +84,6 @@ for line in programL:
             stringL = " ".join(args[1:])[1:-1]
         program.append(stringL)
         tc += 1
-    if opcode == "run":
-        program.append(args[1].lower())
-        tc+=1
     if opcode.startswith("jump"):
         label = args[1].lower()
         program.append(label)
@@ -112,15 +112,16 @@ for line in programL:
         tc += 1
     
 
-if debug:
+if not debug:
     print(program)
     print(lt)
     
 pc = 0
-stack = Stack(STACK_SIZE)
+stack = Stack(Ruleset.getVal("ss"), Ruleset.getVal("ivs"))
 
 while program[pc] != "halt":
     opcode = program[pc]
+    print(opcode)
     pc += 1
     if opcode == "push":
         if program[pc] == "_var_":
@@ -147,9 +148,6 @@ while program[pc] != "halt":
             strL = program[pc]
         print(strL)
         pc += 1
-    elif opcode == "run":
-        Commands[program[pc]]()
-        pc+=1
     elif opcode == "add":
         a = stack.pop()
         b = stack.pop()
@@ -159,7 +157,7 @@ while program[pc] != "halt":
             raise TypeError("Top 2 variables in the stack are both not Type int")
     elif opcode.startswith("jump"):
         theTop = stack.top()
-        #print(stack.top())
+        print(type(stack.top()))
         if JumpStatement(opcode, theTop):
             pc = lt[program[pc]]
         else:

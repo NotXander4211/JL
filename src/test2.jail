@@ -1,13 +1,12 @@
 #JL@SS 256
-#JL@IVS
-VAR INT x 3
-PUSH INT 10
+#JL@IVS True
+VAR INT x 5
+PUSH INT 3
 PUSH VAR x
+PUSH BOOL True
 PRINT __var_stack__
-POP
 PRINT __top__
-RUN lol
-JUMP.GT.4 L1
+JUMP.TR L1
 HALT
 L1:
 PRINT "HIlol"

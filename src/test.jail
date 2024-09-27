@@ -1,6 +1,5 @@
 ??#JL@SS 256
 ??#JL@IVS
-run lol
 PUSH INT 1
 PRINT __top__
 VAR INT x 10

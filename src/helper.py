@@ -4,13 +4,22 @@ class TypeError(Exception):
 class MissingArgumentError(Exception):
     pass
 
-class RuleSet:
-    def __init__(self):
-        pass
+class RuleSetConfigs:
+    def __init__(self, ss, ivs):
+        self.rules = {}
+        self.rules["ss"] = ss
+        self.rules["ivs"] = ivs
+    def getVal(self, val):
+        return self.rules[val]
+    def setVal(self, key, val):
+        self.rules[key] = val
 
 class Stack:
-    def __init__(self, size):
-        self.vars = {}
+    def __init__(self, size, vars):
+        if vars:
+            self.vars = {}
+            self.varUse = True
+        self.varUse = False
         self.buf = [0 for _ in range(size)]
         self.pt = -1
     def push(self, value: int):
@@ -18,15 +27,17 @@ class Stack:
         self.buf[self.pt] = value
     def pop(self):
         #print(self.buf[self.pt])
-        number = int(self.buf[self.pt])
+        val = self.buf[self.pt]
         self.pt -= 1
-        return number
+        return val
     def top(self):
         return self.buf[self.pt]
     def pushVar(self, var, value):
-        self.vars[var] = value
+        if self.varUse:
+            self.vars[var] = value
     def getVar(self, var):
-        return self.vars[var]
+        if self.varUse:
+            return self.vars[var]
 
 def CheckType(type1, type2, wantedType1, wantedType2):
     global boolType1,boolType2
@@ -65,12 +76,3 @@ def JumpStatement(statement, top):
             case default:
                 raise MissingArgumentError("Missing argument for jump statement")
     return res
-
-Commands = {
-    "add":lambda x,y: x+y,
-    "sub":lambda x,y: x-y,
-    "mult":lambda x,y: x*y,
-    "div":lambda x,y: x/y,
-    "mod":lambda x,y: x%y,
-    "lol":lambda : print("hi")
-}
