@@ -45,6 +45,11 @@ for line in programL:
                 case "ivs":
                     print('ivs')
                     Ruleset.setVal("ivs", bool(args[1]))
+        elif permutator == "!":
+            match cmd.lower():
+                case "db":
+                    print("Debug Active")
+                    debug = True
         
         continue
 
@@ -112,7 +117,7 @@ for line in programL:
         tc += 1
     
 
-if not debug:
+if debug:
     print(program)
     print(lt)
     
@@ -121,7 +126,8 @@ stack = Stack(Ruleset.getVal("ss"), Ruleset.getVal("ivs"))
 
 while program[pc] != "halt":
     opcode = program[pc]
-    print(opcode)
+    if debug:
+        print(opcode)
     pc += 1
     if opcode == "push":
         if program[pc] == "_var_":

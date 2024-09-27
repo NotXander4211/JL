@@ -1,5 +1,6 @@
 #JL@SS 256
 #JL@IVS True
+#JL!DB
 VAR INT x 5
 PUSH INT 3
 PUSH VAR x
