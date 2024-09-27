@@ -1,3 +1,4 @@
+import sys
 from helper import Stack, RuleSetConfigs, CheckType, JumpStatement, TypeError, MissingArgumentError
 
 # types: int, str, bool, list
@@ -12,6 +13,8 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement, TypeError, M
 debug = False
 Ruleset = RuleSetConfigs(256, True)
 filen = "./src/test2.jail"
+if len(sys.argv) >= 2:
+    filen = sys.argv[1]
 
 programL = []
 with open(filen, "r") as file:
