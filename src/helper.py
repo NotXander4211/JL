@@ -4,6 +4,9 @@ class TypeError(Exception):
 class MissingArgumentError(Exception):
     pass
 
+class RestrictedUse(Exception):
+    pass
+
 class RuleSetConfigs:
     def __init__(self, ss, ivs):
         self.rules = {}
@@ -16,10 +19,10 @@ class RuleSetConfigs:
 
 class Stack:
     def __init__(self, size, vars):
+        self.varUse = False
         if vars:
             self.vars = {}
             self.varUse = True
-        self.varUse = False
         self.buf = [0 for _ in range(size)]
         self.pt = -1
     def push(self, value: int):
@@ -35,9 +38,12 @@ class Stack:
     def pushVar(self, var, value):
         if self.varUse:
             self.vars[var] = value
+        else:
+            raise RestrictedUse("IVS was not set to True, variable stack was not created")
     def getVar(self, var):
         if self.varUse:
             return self.vars[var]
+        raise RestrictedUse("IVS was not set to True, variable stack was not created")
 
 def CheckType(type1, type2, wantedType1, wantedType2):
     global boolType1,boolType2

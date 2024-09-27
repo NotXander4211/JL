@@ -3,11 +3,10 @@
 VAR INT x 5
 PUSH INT 3
 PUSH VAR x
-PUSH BOOL True
 PRINT __var_stack__
 PRINT __top__
-JUMP.TR L1
+JUMP.GT.4 L1
 HALT
 L1:
-PRINT "HIlol"
+PRINT "HI"
 HALT
