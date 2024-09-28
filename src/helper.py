@@ -8,10 +8,10 @@ class RestrictedUse(Exception):
     pass
 
 class RuleSetConfigs:
-    def __init__(self, ss, ivs):
+    def __init__(self, ss, vs):
         self.rules = {}
         self.rules["ss"] = ss
-        self.rules["ivs"] = ivs
+        self.rules["vs"] = vs
     def getVal(self, val):
         return self.rules[val]
     def setVal(self, key, val):
@@ -39,11 +39,11 @@ class Stack:
         if self.varUse:
             self.vars[var] = value
         else:
-            raise RestrictedUse("IVS was not set to True, variable stack was not created")
+            raise RestrictedUse("VS was not set to True, variable stack was not created")
     def getVar(self, var):
         if self.varUse:
             return self.vars[var]
-        raise RestrictedUse("IVS was not set to True, variable stack was not created")
+        raise RestrictedUse("VS was not set to True, variable stack was not created")
 
 def CheckType(type1, type2, wantedType1, wantedType2):
     global boolType1,boolType2

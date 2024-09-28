@@ -12,6 +12,8 @@ PRINT <String>: used to print out a message to stdout.
 
 JUMP.EQ.0 <LABEL>: used to jump to a label when the top of the stack equals 0 
 
+VAR <Type> name<String> val<Type>: used to create a variable of type with name of name
+
 HALT: used to mark the end of a program, if this is missing you get infinite loop :)
 
 Labels:
@@ -19,7 +21,42 @@ Labels:
 Labels must end with a ":" A label can look like this >>>  L1:
 
 By default, stack is always 256 spots in size.
-will be adding support for a dynamic stack in python, java may or may not be updated.
+
+JL Commands:
+
+#JL will be the basic command
+
+#JL@ is for commands that relate to how the code is read and what needs to be created
+
+#JL! is for specialized lexer commands
+
+#JL@ Current Commands:
+
+SS <int>: for the stack size
+
+ex: #JL@SS 128
+
+IVS: To include the variable stack
+
+ex: #JL@IVS
+
+EVS: To Exclude the variable stack
+
+ex: #JL@EVS
+
+#JL! Current Commands:
+
+DB: to show the debug messages
+
+ex: #JL!DB
+
+Defaults:
+
+Stack Size: 256
+
+Variable stack: Disabled or Excluded
+
+Debug: Disabled
 
 so java side only works with integers. print statements can be strings. 
 Will be adding more support for the python side, java is not looking to get many more updates :)

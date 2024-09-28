@@ -11,8 +11,8 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement, TypeError, M
 #default is 256 
 
 debug = False
-Ruleset = RuleSetConfigs(256, True)
-filen = "./src/test2.jail"
+Ruleset = RuleSetConfigs(256, False)
+filen = "./src/test.jail"
 if len(sys.argv) >= 2:
     filen = sys.argv[1]
 
@@ -37,17 +37,20 @@ for line in programL:
         continue
     # deal with #JL,  #JL@ for commands
     if opcode.startswith("#jl"):
-        print("--Lexer: startswith #JL")
+        if debug:
+            print("--Lexer: startswith #JL")
         permutator = opcode[3]
         cmd = opcode[4:]
         if permutator == "@": 
+            if debug:
+                print("--Lexer: " + cmd.lower())
             match cmd.lower():
-                case "ss":
-                    print("ss")
+                case "ss":         
                     Ruleset.setVal("ss", int(args[1]))
                 case "ivs":
-                    print('ivs')
-                    Ruleset.setVal("ivs", bool(args[1]))
+                    Ruleset.setVal("vs", True)
+                case "evs":
+                    Ruleset.setVal("vs", False)
         elif permutator == "!":
             match cmd.lower():
                 case "db":
@@ -121,16 +124,16 @@ for line in programL:
     
 
 if debug:
-    print(program)
-    print(lt)
+    print("--Std Printer: ", program)
+    print("--Std Printer: ", lt)
     
 pc = 0
-stack = Stack(Ruleset.getVal("ss"), Ruleset.getVal("ivs"))
+stack = Stack(Ruleset.getVal("ss"), Ruleset.getVal("vs"))
 
 while program[pc] != "halt":
     opcode = program[pc]
     if debug:
-        print(opcode)
+        print("--Runner: " + opcode)
     pc += 1
     if opcode == "push":
         if program[pc] == "_var_":
@@ -166,7 +169,8 @@ while program[pc] != "halt":
             raise TypeError("Top 2 variables in the stack are both not Type int")
     elif opcode.startswith("jump"):
         theTop = stack.top()
-        print(type(stack.top()))
+        if debug:
+            print("--Runner 'jump' opcode: ", type(stack.top()))
         if JumpStatement(opcode, theTop):
             pc = lt[program[pc]]
         else:
