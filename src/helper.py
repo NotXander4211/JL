@@ -7,6 +7,11 @@ class MissingArgumentError(Exception):
 class RestrictedUse(Exception):
     pass
 
+class OpcodeException(Exception):
+    pass
+
+EXCEPTIONS = {"TE":TypeError, "MAE":MissingArgumentError, "RU":RestrictedUse, "OE":OpcodeException}
+
 class RuleSetConfigs:
     def __init__(self, ss, vs):
         self.rules = {}

@@ -1,5 +1,6 @@
 import sys
-from helper import Stack, RuleSetConfigs, CheckType, JumpStatement, TypeError, MissingArgumentError
+from helper import EXCEPTIONS
+from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 
 # types: int, str, bool, list
 # comment: ??
@@ -166,7 +167,7 @@ while program[pc] != "halt":
         if CheckType(a, b, int, int):
             stack.push(a + b)
         else:
-            raise TypeError("Top 2 variables in the stack are both not Type int")
+            raise EXCEPTIONS["TE"]("Top 2 variables in the stack are both not Type int")
     elif opcode.startswith("jump"):
         theTop = stack.top()
         if debug:
@@ -179,5 +180,5 @@ while program[pc] != "halt":
         stack.pushVar(program[pc], program[pc + 1])
         pc += 2
     else:
-        print(opcode + "not implemented yet or not a possible opcode!")
+        raise EXCEPTIONS["OE"](opcode + "not implemented yet or not a possible opcode!")
         pc += 1
