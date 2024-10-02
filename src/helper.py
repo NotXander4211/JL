@@ -84,6 +84,6 @@ def JumpStatement(statement, top):
             case "fa":
                 if top == False:
                     res = True
-            case default:
+            case _:
                 raise MissingArgumentError("Missing argument for jump statement")
     return res
