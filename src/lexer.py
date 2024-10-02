@@ -181,5 +181,5 @@ while program[pc] != "halt":
         stack.pushVar(program[pc], program[pc + 1])
         pc += 2
     else:
-        raise EXCEPTIONS["OE"](opcode + "not implemented yet or not a possible opcode!")
         pc += 1
+        raise EXCEPTIONS["OE"](opcode + "not implemented yet or not a possible opcode!")
