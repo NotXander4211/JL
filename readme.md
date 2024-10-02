@@ -1,5 +1,10 @@
 nah who needs a readme....
 but seriously read this to the end to not get any errors bc error handling is non-existent.
+Java side is not deprecated cuz im not doing all that again
+
+types: int, str, bool, list
+
+Stack size is in length of the list not in bytes
 
 BASIC SYNTAX:
 PUSH <int>: used to push a number to the stack. can only push ints currently
