@@ -13,7 +13,7 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 
 debug = False
 Ruleset = RuleSetConfigs(256, False)
-filen = "./src/test.jail"
+filen = "./src/prog/test.jail"
 if len(sys.argv) >= 2:
     filen = sys.argv[1]
 
