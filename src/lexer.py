@@ -10,6 +10,7 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 # use that for stack size
 # --not in bytes, in length of the stack<list>--
 #default is 256 
+#All commands are run during the lexing
 
 debug = False
 Ruleset = RuleSetConfigs(256, False)
