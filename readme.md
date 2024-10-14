@@ -27,33 +27,33 @@ Labels must end with a ":" A label can look like this >>>  L1:
 
 By default, stack is always 256 spots in size.
 
-JL Commands:
+OL Commands:
 
-#JL will be the basic command
+#OL will be the basic command
 
-#JL@ is for commands that relate to how the code is read and what needs to be created
+#OL@ is for commands that relate to how the code is read and what needs to be created
 
-#JL! is for specialized lexer commands
+#OL! is for specialized lexer commands
 
-#JL@ Current Commands:
+#OL@ Current Commands:
 
 SS <int>: for the stack size
 
-ex: #JL@SS 128
+ex: #OL@SS 128
 
 IVS: To include the variable stack
 
-ex: #JL@IVS
+ex: #OL@IVS
 
 EVS: To Exclude the variable stack
 
-ex: #JL@EVS
+ex: #OL@EVS
 
-#JL! Current Commands:
+#OL! Current Commands:
 
 DB: to show the debug messages
 
-ex: #JL!DB
+ex: #OL!DB
 
 Defaults:
 
@@ -68,11 +68,10 @@ Will be adding more support for the python side, java is not looking to get many
 
 BTW: python will probably work better when it has better type support.
 
-This is the JAIL programming language becuase this was so goofy to code. 
-was about to use the .JL extention but julia got there before me so we use .jail instead.
+This is the op lang programming language becuase this was so goofy to code. 
 
 |========|
-|{[-JL-]}|
+|{[-OL-]}|
 |========|
 
 good luck

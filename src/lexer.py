@@ -4,9 +4,9 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 
 # types: int, str, bool, list
 # comment: ??
-# #JL for commands
-# #JL@ for other commands 
-# #JL@SS size<int>
+# #OL for commands
+# #OL@ for other commands 
+# #OL@SS size<int>
 # use that for stack size
 # --not in bytes, in length of the stack<list>--
 #default is 256 
@@ -14,7 +14,7 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 
 debug = False
 Ruleset = RuleSetConfigs(256, False)
-filen = "./src/prog/test.jail"
+filen = "./src/prog/test.ol"
 if len(sys.argv) >= 2:
     filen = sys.argv[1]
 
@@ -37,10 +37,10 @@ for line in programL:
     if opcode.startswith("??"):
         #this is a comment ^
         continue
-    # deal with #JL,  #JL@ for commands
-    if opcode.startswith("#jl"):
+    # deal with #OL,  #OL@ for commands
+    if opcode.startswith("#OL"):
         if debug:
-            print("--Lexer: startswith #JL")
+            print("--Lexer: startswith #OL")
         permutator = opcode[3]
         cmd = opcode[4:]
         if permutator == "@": 

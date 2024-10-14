@@ -1,6 +1,6 @@
-#JL!DB
-#JL@SS 256
-#JL@IVS
+#OL!DB
+#OL@SS 256
+#OL@IVS
 PUSH INT 1
 PRINT __top__
 VAR INT x 10
