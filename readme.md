@@ -68,7 +68,8 @@ Will be adding more support for the python side, java is not looking to get many
 
 BTW: python will probably work better when it has better type support.
 
-This is the op lang programming language becuase this was so goofy to code. 
+This is the op lang programming language becuase this was so goofy to code.
+we changed to ol cuz it wasnt taken
 
 |========|
 |{[-OL-]}|
