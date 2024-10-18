@@ -1,8 +1,8 @@
 nah who needs a readme....
 but seriously read this to the end to not get any errors bc error handling is non-existent.
-Java side is not deprecated cuz im not doing all that again
+Java side is now deprecated cuz im not doing all that again
 
-types: int, str, bool, list
+types: int, str, bool, list(list may or may not work)
 
 Stack size is in length of the list not in bytes
 
@@ -68,7 +68,7 @@ Will be adding more support for the python side, java is not looking to get many
 
 BTW: python will probably work better when it has better type support.
 
-This is the op lang programming language becuase this was so goofy to code.
+This is the op lang/our lang programming language
 we changed to ol cuz it wasnt taken
 
 |========|
