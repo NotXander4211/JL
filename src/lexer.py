@@ -1,5 +1,6 @@
 import sys
 from helper import EXCEPTIONS
+from helper import sendDebug
 from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 
 # types: int, str, bool, list
@@ -12,7 +13,6 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 #default is 256 
 #All commands are run during the lexing
 
-debug = False
 Ruleset = RuleSetConfigs(256, False)
 filen = "./src/prog/test.ol"
 if len(sys.argv) >= 2:
@@ -28,24 +28,26 @@ lt = {}
 for line in programL:
     args = line.split(" ")
     opcode = args[0].lower()
+    sendDebug(opcode, Ruleset)
 
     if opcode == "":
+        sendDebug("blank line cont", Ruleset)
         continue
     if opcode.endswith(":"):
         lt[opcode[:-1]] = tc+1
+        sendDebug("label':' cont", Ruleset)
         continue
     if opcode.startswith("??"):
         #this is a comment ^
+        print("??comp")
         continue
     # deal with #OL,  #OL@ for commands
-    if opcode.startswith("#OL"):
-        if debug:
-            print("--Lexer: startswith #OL")
+    if opcode.startswith("#ol"):
+        sendDebug("--Lexer: startswith #ol", Ruleset)
         permutator = opcode[3]
         cmd = opcode[4:]
         if permutator == "@": 
-            if debug:
-                print("--Lexer: " + cmd.lower())
+            sendDebug("--Lexer: " + cmd.lower(), Ruleset)
             match cmd.lower():
                 case "ss":         
                     Ruleset.setVal("ss", int(args[1]))
@@ -57,7 +59,7 @@ for line in programL:
             match cmd.lower():
                 case "db":
                     print("Debug Active")
-                    debug = True
+                    Ruleset.setVal("db", True)
         
         continue
 
@@ -125,17 +127,15 @@ for line in programL:
         tc += 1
     
 
-if debug:
-    print("--Std Printer: ", program)
-    print("--Std Printer: ", lt)
+sendDebug(f"--Std Printer: {program}", Ruleset)
+sendDebug(f"--Std Printer: {lt}", Ruleset)
     
 pc = 0
 stack = Stack(Ruleset.getVal("ss"), Ruleset.getVal("vs"))
 
 while program[pc] != "halt":
     opcode = program[pc]
-    if debug:
-        print("--Runner: " + opcode)
+    sendDebug(f"--Runner: {opcode}", Ruleset)
     pc += 1
     if opcode == "push":
         if program[pc] == "_var_":
@@ -171,8 +171,7 @@ while program[pc] != "halt":
             raise EXCEPTIONS["TE"]("Top 2 variables in the stack are both not Type int")
     elif opcode.startswith("jump"):
         theTop = stack.top()
-        if debug:
-            print("--Runner 'jump' opcode: ", type(stack.top()))
+        sendDebug(f"--Runner 'jump' opcode: {type(stack.top())}", Ruleset)
         if JumpStatement(opcode, theTop):
             pc = lt[program[pc]]
         else:
