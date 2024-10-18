@@ -13,7 +13,7 @@ from helper import Stack, RuleSetConfigs, CheckType, JumpStatement
 #default is 256 
 #All commands are run during the lexing
 
-Ruleset = RuleSetConfigs(256, False)
+Ruleset = RuleSetConfigs(ss=256, vs=False)
 filen = "./src/prog/test.ol"
 if len(sys.argv) >= 2:
     filen = sys.argv[1]

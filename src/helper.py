@@ -13,11 +13,8 @@ class OpcodeException(Exception):
 EXCEPTIONS = {"TE":TypeError, "MAE":MissingArgumentError, "RU":RestrictedUse, "OE":OpcodeException}
 
 class RuleSetConfigs:
-    def __init__(self, ss: int, vs: bool, db: bool):
-        self.rules = {}
-        self.rules["ss"] = ss
-        self.rules["vs"] = vs
-        self.rules["db"] = db
+    def __init__(self, **kwargs):
+        self.rules = kwargs
     def getVal(self, val):
         return self.rules.get(val, None)
     def setVal(self, key, val):
@@ -90,5 +87,10 @@ def JumpStatement(statement, top):
     return res
 
 def sendDebug(msg, rs: RuleSetConfigs): # rs = rule set
-    if rs.getVal("db"):
-        print(msg)
+    if not rs.getVal("db"):
+        return
+    if rs.getVal("LG"):
+        logfile = rs.getVal("LGFL")
+        pass #log message to file 
+        return
+    print(msg)
